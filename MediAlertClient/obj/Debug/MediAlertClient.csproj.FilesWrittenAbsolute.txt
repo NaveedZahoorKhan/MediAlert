@@ -1,0 +1,16 @@
+/Volumes/VMware Shared Folders/Downloads/MediAlert/MediAlertClient/obj/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
+/Volumes/VMware Shared Folders/Downloads/MediAlert/MediAlertClient/obj/Debug/MediAlertClient.Form1.resources
+/Volumes/VMware Shared Folders/Downloads/MediAlert/MediAlertClient/obj/Debug/MediAlertClient.LogManagement.resources
+/Volumes/VMware Shared Folders/Downloads/MediAlert/MediAlertClient/obj/Debug/MediAlertClient.Properties.Resources.resources
+/Volumes/VMware Shared Folders/Downloads/MediAlert/MediAlertClient/bin/Debug/MediAlertClient.exe.mdb
+/Volumes/VMware Shared Folders/Downloads/MediAlert/MediAlertClient/bin/Debug/MediAlertClient.exe
+/Volumes/VMware Shared Folders/Downloads/MediAlert/MediAlertClient/obj/Debug/MediAlertClient.exe
+/Volumes/VMware Shared Folders/Downloads/MediAlert/MediAlertClient/obj/Debug/MediAlertClient.exe.mdb
+/Users/admin/Downloads/MediAlert/MediAlertClient/obj/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
+/Users/admin/Downloads/MediAlert/MediAlertClient/obj/Debug/MediAlertClient.Form1.resources
+/Users/admin/Downloads/MediAlert/MediAlertClient/obj/Debug/MediAlertClient.LogManagement.resources
+/Users/admin/Downloads/MediAlert/MediAlertClient/obj/Debug/MediAlertClient.Properties.Resources.resources
+/Users/admin/Downloads/MediAlert/MediAlertClient/bin/Debug/MediAlertClient.exe.mdb
+/Users/admin/Downloads/MediAlert/MediAlertClient/bin/Debug/MediAlertClient.exe
+/Users/admin/Downloads/MediAlert/MediAlertClient/obj/Debug/MediAlertClient.exe
+/Users/admin/Downloads/MediAlert/MediAlertClient/obj/Debug/MediAlertClient.exe.mdb

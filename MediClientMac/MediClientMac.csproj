@@ -56,6 +56,10 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.Mac" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\netstandard1.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
@@ -70,6 +74,8 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-512.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-512%402x.png" />
     <ImageAsset Include="Assets.xcassets\Contents.json" />
+    <ImageAsset Include="Media.xcassets\Contents.json" />
+    <ImageAsset Include="Resources\amber.ico" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -77,6 +83,7 @@
   <ItemGroup>
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -85,9 +92,43 @@
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="PreferencesViewController.cs" />
+    <Compile Include="PreferencesViewController.designer.cs">
+      <DependentUpon>PreferencesViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form1ViewController.cs" />
+    <Compile Include="Form1ViewController.designer.cs">
+      <DependentUpon>Form1ViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClientFormViewController.cs" />
+    <Compile Include="ClientFormViewController.designer.cs">
+      <DependentUpon>ClientFormViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AlertOnRedClickViewController.cs" />
+    <Compile Include="AlertOnRedClickViewController.designer.cs">
+      <DependentUpon>AlertOnRedClickViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AlertOnGreenClickViewController.cs" />
+    <Compile Include="AlertOnGreenClickViewController.designer.cs">
+      <DependentUpon>AlertOnGreenClickViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AlertBoxClickViewController.cs" />
+    <Compile Include="AlertBoxClickViewController.designer.cs">
+      <DependentUpon>AlertBoxClickViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Clients.cs" />
+    <Compile Include="JsonHelper.cs" />
+    <Compile Include="FileHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\green.ico" />
+    <BundleResource Include="Resources\resources.mdl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Resources\red.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
 </Project>
