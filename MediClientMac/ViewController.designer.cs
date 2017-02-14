@@ -37,14 +37,14 @@ namespace MediClientMac
 				box = null;
 			}
 
-			if (combo_box != null) {
-				combo_box.Dispose ();
-				combo_box = null;
-			}
-
 			if (checkbox_outleter != null) {
 				checkbox_outleter.Dispose ();
 				checkbox_outleter = null;
+			}
+
+			if (combo_box != null) {
+				combo_box.Dispose ();
+				combo_box = null;
 			}
 		}
 	}

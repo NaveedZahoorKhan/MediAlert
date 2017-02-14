@@ -1,0 +1,31 @@
+﻿<Properties StartupConfiguration="{06DCB4E6-3091-4212-B0DE-7F63083FC3A1}|Default" GitUserInfo="UsingGIT">
+  <MonoDevelop.Ide.ItemProperties.MediClient PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="MediClientMac/ClientFormViewController.cs">
+    <Files>
+      <File FileName="MediClientMac/AlertOnRedClickViewController.cs" Line="44" Column="82" />
+      <File FileName="MediClientMac/ViewController.cs" Line="111" Column="25" />
+      <File FileName="MediClientMac/ClientFormViewController.cs" Line="228" Column="18" />
+      <File FileName="MediClientMac/PreferencesViewController.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/admin/Downloads/MediAlert/MediAlertServerMac/ClientsTableDelegate.cs" line="42" column="4" />
+      <Breakpoint file="/Users/admin/Downloads/MediAlert/MediAlertServerMac/ClientsTableDelegate.cs" line="45" column="1" />
+      <Breakpoint file="/Users/admin/Downloads/MediAlert/MediAlertServerMac/ClientsTableDelegate.cs" line="48" column="1" />
+      <Breakpoint file="/Users/admin/Downloads/MediAlert/MediClientMac/AlertOnRedClickViewController.cs" line="33" column="3" />
+      <Breakpoint file="/Users/admin/Downloads/MediAlert/MediClientMac/AlertOnRedClickViewController.cs" line="15" column="2" />
+      <Breakpoint file="/Users/admin/Downloads/MediAlert/MediClientMac/AlertOnRedClickViewController.cs" line="38" column="3" />
+      <Breakpoint file="/Users/admin/Downloads/MediAlert/MediClientMac/ClientFormViewController.cs" line="25" column="4" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
+    <Watch file="MediClientMac/ClientFormViewController.cs" line="130" offsetX="841" offsetY="1935" expression="ViewController.ServerIpAddress" liveUpdate="False" />
+  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
+  <MonoDevelop.Ide.ItemProperties.MediAlertServerMac PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.ItemProperties.MediAlertClient PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.ItemProperties.MediClientMac PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.ItemProperties.MediAlert PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.ItemProperties.MediAlertClientMac PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>

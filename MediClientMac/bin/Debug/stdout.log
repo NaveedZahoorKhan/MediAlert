@@ -1,0 +1,26 @@
+Name: lo0
+Description: lo0
+Addresses: 
+ 127.0.0.1
+ ::1
+ fe80::1%1
+
+Name: gif0
+Description: gif0
+Addresses: 
+
+Name: stf0
+Description: stf0
+Addresses: 
+
+Name: en0
+Description: en0
+Addresses: 
+ fe80::840:6df5:54df:28cf%4
+ 192.168.43.160
+
+Name: utun0
+Description: utun0
+Addresses: 
+ fe80::561e:4478:9c42:7ad6%5
+

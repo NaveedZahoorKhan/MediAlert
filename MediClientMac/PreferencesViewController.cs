@@ -15,42 +15,87 @@ namespace MediClientMac
 		public PreferencesViewController(IntPtr handle) : base(handle)
 		{
 
-			Clients clt = GetLatestClient();
-			if (clt != null)
-			{
-				txtOk.StringValue = clt.OkMessage;
-				txtAlert.StringValue = clt.AlertMessage;
-				txtClientName.StringValue = clt.ClientName;
-				txtCurrentIP.StringValue = clt.ipadd;
-				txtServerIP.StringValue = clt.ServerIP;
-				if (!string.IsNullOrEmpty(clt.ModifierCode))
-				{
-					comboBox1.Add(new NSString(clt.ModifierCode));
-				}
-				if (!string.IsNullOrEmpty(clt.KeyHashCode))
-				{
-					comboBox2.Add(new NSString(clt.KeyHashCode));
-				}
-				if (clt.MessageMode == "Alert")
-				{
-					alert_button_outlet.SelectedCell.State = NSCellStateValue.On;
-				}
-				else
-					if (clt.MessageMode == "Ok")
-				{
-					ok_button_outlet.SelectedCell.State = NSCellStateValue.On;
-				}
-				else
-						if (clt.MessageMode == "Both")
-				{
-					both_button_outlet.SelectedCell.State = NSCellStateValue.On;
-				}
+		
 			}
+
+		public void ModalRunner(string message, string infoText)
+		{
+			InvokeOnMainThread(() =>
+					{
+
+						NSAlert alert = new NSAlert();
+						alert.MessageText = message;
+						alert.InformativeText = "Reason: " + infoText;
+						alert.AlertStyle = NSAlertStyle.Informational;
+
+						alert.RunModal();
+					});
 		}
 		public PreferencesViewController()
 		{
 		}
+		public override void ViewDidAppear()
+		{
 
+			base.ViewDidAppear();
+		
+			
+			
+		}
+		public override void ViewDidLoad()
+		{
+			base.ViewDidLoad();
+			base.AwakeFromNib();
+			Initializer();
+			
+		}
+		public override void AwakeFromNib()
+		{
+			base.AwakeFromNib();
+		}
+		public void Initializer()
+		{
+			Clients clt = GetLatestClient();
+			if (clt != null)
+			{
+				try
+				{
+					txtOk= new NSTextField(new NSCoder(new NSObject(clt.OkMessage)));
+
+					//this.txtOk.StringValue = clt.OkMessage == null ? "Demo" : clt.OkMessage;
+					//txtAlert.StringValue = clt.AlertMessage == null ? "Demo" : clt.AlertMessage;
+					//txtClientName.StringValue = clt.ClientName == null ? "Demo" : clt.ClientName;
+					//txtCurrentIP.StringValue = clt.ipadd == null ? "Demo" : clt.ipadd;
+					//txtServerIP.StringValue = clt.ServerIP == null ? "Demo" : clt.ServerIP;
+					//if (!string.IsNullOrEmpty(clt.ModifierCode))
+					{
+						comboBox1.Add(new NSString(clt.ModifierCode));
+					}
+					if (!string.IsNullOrEmpty(clt.KeyHashCode))
+					{
+						comboBox2.Add(new NSString(clt.KeyHashCode));
+					}
+					if (clt.MessageMode == "Alert")
+					{
+						alert_button_outlet.SelectedCell.State = NSCellStateValue.On;
+					}
+					else
+						if (clt.MessageMode == "Ok")
+					{
+						ok_button_outlet.SelectedCell.State = NSCellStateValue.On;
+					}
+					else
+							if (clt.MessageMode == "Both")
+					{
+						both_button_outlet.SelectedCell.State = NSCellStateValue.On;
+					}
+				}
+				catch (Exception ex)
+				{
+					ModalRunner(ex.GetType().ToString(), ex.Message);
+				}
+			}
+		}
 		//RegistryKey rkApp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 		public static string OkMessage = "";
 		public static string AlertMessage = "";
@@ -72,7 +117,6 @@ namespace MediClientMac
 		}
 		partial void checkBox1(NSObject sender)
 		{
-
 			if (checkBox1_outlet.State == NSCellStateValue.On)
 			{
 				// Add the value in the registry so that the application runs at startup
@@ -295,6 +339,21 @@ namespace MediClientMac
 				nSAlert.RunModal();
 			}
 		}
-
+		private NSViewController _presentor;
+		public NSViewController Presentor
+		{
+			get
+			{
+				return _presentor;
+			}
+			set
+			{
+				_presentor = value;
+			}
+		}
+		partial void close_button(NSObject sender)
+		{
+			DismissViewController(this);
+		}
 	}
 }

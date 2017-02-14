@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Net.NetworkInformation;
 using AppKit;
 using Foundation;
 
@@ -12,18 +13,27 @@ namespace MediClientMac
 		public ViewController(IntPtr handle) : base(handle)
 		{
 		}
-		public static string ServerIpAddress = "192.168.56.1";
-		public static string IpAddressVal = "192.168.56.1";
+
+		public ViewController()
+		{
+		}
+
+		public static string ServerIpAddress = "";
+		public static string IpAddressVal = "";
 
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			AwakeFromNib();
+
 			// Do any additional setup after loading the view.
 
 		
 		}
-
+		public override void ViewDidAppear()
+		{
+			base.ViewDidAppear();
+			ValueAdder();
+		}
 		public override NSObject RepresentedObject
 		{
 			get
@@ -36,33 +46,49 @@ namespace MediClientMac
 				// Update the view, if already loaded.
 			}
 		}
-		public override void AwakeFromNib()
+		public void ValueAdder()
 		{
-			base.AwakeFromNib();
+			
 			try
 			{
-				
-				IPHostEntry IPHost = Dns.GetHostByName(Dns.GetHostName());
-				combo_box.UsesDataSource = true;
-				combo_box.Add(new NSString("127.0.0.1"));
-				foreach (IPAddress item in IPHost.AddressList)
+				combo_box.UsesDataSource = false;
+			
+				foreach (NetworkInterface netInterface in NetworkInterface.GetAllNetworkInterfaces())
 				{
-					combo_box.Add(new NSString(item.ToString()));
+					Console.WriteLine("Name: " + netInterface.Name);
+					Console.WriteLine("Description: " + netInterface.Description);
+					Console.WriteLine("Addresses: ");
+					IPInterfaceProperties ipProps = netInterface.GetIPProperties();
+					foreach (UnicastIPAddressInformation addr in ipProps.UnicastAddresses)
+					{
+						combo_box.Add(new NSString(addr.Address.ToString()));
+						Console.WriteLine(" " + addr.Address.ToString());
+					}
+					Console.WriteLine("");
 				}
+				//IPHostEntry IPHost = Dns.GetHostEntry(Dns.GetHostName());
+
+				//foreach (IPAddress item in IPHost.AddressList)
+				//{
+				//	combo_box.Add(new NSString(item.ToString()));
+				//}
 
 				Clients clt = GetLatestClient();
 				if (!String.IsNullOrEmpty(clt.ServerIP) && !String.IsNullOrEmpty(clt.ipadd))
 				{
 					ServerIpAddress = clt.ServerIP;
 					IpAddressVal = clt.ipadd;
-					//ClientForm serverMaster = new ClientForm();
-					//serverMaster.Show();
-					//BeginInvoke(new MethodInvoker(Hide));
+				//	//ClientForm serverMaster = new ClientForm();
+				//	//serverMaster.Show();
+				//	//BeginInvoke(new MethodInvoker(Hide));
 				}
 			}
 			catch (Exception ex)
 			{
-				Debug.Write(ex.Message);
+				NSAlert alert = new NSAlert();
+				alert.MessageText = ex.GetType().ToString();
+				alert.InformativeText = ex.Message;
+				alert.RunModal();
 			}
 		}
 		string filename = "MediText.mdl";
@@ -116,19 +142,44 @@ namespace MediClientMac
 					WriteJsonFile(clt);
 				}
 
-				ServerIpAddress = box.StringValue;
-				IpAddressVal = combo_box.SelectedValue.ToString();
-				//this.Hide();
-				//ClientForm serverMaster = new ClientForm();
-				//serverMaster.Show();
+				try
+				{
+					ServerIpAddress = box.StringValue;
+					IpAddressVal = combo_box.SelectedValue.ToString();
+					//this.Hide();
+					//ClientForm serverMaster = new ClientForm();
+					//serverMaster.Show();
+					//DismissViewController(this);
+
+					PerformSegue("ShowClientSegue", this);
+				}
+				catch (Exception ex)
+				{
+					ModalRunner(ex.GetType().ToString(), ex.Message);
+				}
+
+
 			}
 			else
 			{
-				NSAlert alert = new NSAlert();
-				alert.MessageText=("Please enter server ip/select client ip."+ "Enter Server/Client IP");
-				alert.RunModal();
+
+				ModalRunner("Not Valid IP","Please enter server ip/select client ip."+ "Enter Server/Client IP");
+			
 			}
 
+		}
+		public void ModalRunner(string message, string infoText)
+		{
+			InvokeOnMainThread(() =>
+					{
+
+						NSAlert alert = new NSAlert();
+						alert.MessageText = message;
+						alert.InformativeText = "Reason: " + infoText;
+						alert.AlertStyle = NSAlertStyle.Informational;
+
+						alert.RunModal();
+					});
 		}
 		private NSViewController _presentor;
 		public NSViewController Presentor
@@ -138,7 +189,7 @@ namespace MediClientMac
 		}
 		partial void cancel_button(NSObject sender)
 		{
-			Presentor.DismissViewController(this);
+			NSApplication.SharedApplication.Terminate(this);
 		}
 
 		public Clients GetLatestClient()

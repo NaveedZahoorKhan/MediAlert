@@ -13,21 +13,23 @@ namespace MediClientMac
 	{
 		public static string JsonSerializer(T t)
 		{
-			////DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T));
-			//Newtonsoft.Json.JsonSerializer ser = new Newtonsoft.Json.JsonSerializer();
+			//DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T));
 			//MemoryStream ms = new MemoryStream();
-			//JsonWriter writer = new JsonWriter(ms, typeof(T));
-			//ser.Serialize(ms as System.IO.TextWriter, typeof(T));
+			//ser.WriteObject(ms, t);
 			//string jsonString = Encoding.UTF8.GetString(ms.ToArray());
 			//ms.Close();
-			////Replace Json Date String
-			//string p = @"\\/Date\((\d+)\+\d+\)\\/";
-			//MatchEvaluator matchEvaluator = new MatchEvaluator(ConvertJsonDateToDateString);
-			//Regex reg = new Regex(p);
-			//jsonString = reg.Replace(jsonString, matchEvaluator);
-			return null;
-		}
+			JsonSerializer serializer = new JsonSerializer();
 
+			var json = JsonConvert.SerializeObject(t);
+
+			//Replace Json Date String
+			string p = @"\\/Date\((\d+)\+\d+\)\\/";
+			MatchEvaluator matchEvaluator = new MatchEvaluator(ConvertJsonDateToDateString);
+			Regex reg = new Regex(p);
+			//jsonString = reg.Replace(jsonString, matchEvaluator);
+			json = reg.Replace(json, matchEvaluator);
+			return json;
+		}
 		/// <summary>
 		/// JSON Deserialization
 		/// </summary>

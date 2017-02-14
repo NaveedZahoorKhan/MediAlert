@@ -9,13 +9,8 @@ namespace MediClientMac
 {
 	public partial class AlertOnGreenClickViewController : NSViewController
 	{
-		public AlertOnGreenClickViewController (IntPtr handle) : base (handle)
+		public AlertOnGreenClickViewController(IntPtr handle) : base(handle)
 		{
-			Clients clt = new PreferencesViewController().GetLatestClient();
-			label1.StringValue += clt.ClientName;
-
-			label2.StringValue = clt.AlertMessage;
-			label3.StringValue = DateTime.Now.ToShortTimeString().ToString() + " - " + DateTime.Now.ToShortDateString();
 
 		}
 		private NSViewController _presentor;
@@ -26,12 +21,42 @@ namespace MediClientMac
 		}
 		partial void button1(NSObject sender)
 		{
-			Presentor.DismissViewController(this);
+			DismissViewController(this);
 		}
 		public override void ViewDidLayout()
 		{
 			base.ViewDidLayout();
+			try
 
+			{
+				Clients clt = new PreferencesViewController().GetLatestClient();
+				if (clt != null)
+				{
+					label1.StringValue += clt.ClientName == null ? "Demo" : clt.ClientName;
+
+					label2.StringValue = clt.AlertMessage == null ? "Demo" : clt.AlertMessage;
+					label3.StringValue = DateTime.Now.ToShortTimeString() + " - " + DateTime.Now.ToShortDateString();
+
+				}
+			}
+			catch (Exception ex)
+			{
+				ModalRunner(ex.GetType().ToString(), ex.Message);
+
+			}
+		}
+		public void ModalRunner(string message, string infoText)
+		{
+			InvokeOnMainThread(() =>
+					{
+
+						NSAlert alert = new NSAlert();
+						alert.MessageText = message;
+						alert.InformativeText = "Reason: " + infoText;
+						alert.AlertStyle = NSAlertStyle.Informational;
+
+						alert.RunModal();
+					});
 		}
 
 	}

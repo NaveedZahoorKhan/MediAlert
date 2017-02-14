@@ -62,27 +62,15 @@ namespace MediClientMac
 
 		[Action ("checkBox1:")]
 		partial void checkBox1 (Foundation.NSObject sender);
+
+		[Action ("close_button:")]
+		partial void close_button (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (checkBox1_outlet != null) {
-				checkBox1_outlet.Dispose ();
-				checkBox1_outlet = null;
-			}
-
-			if (txtOk != null) {
-				txtOk.Dispose ();
-				txtOk = null;
-			}
-
-			if (txtAlert != null) {
-				txtAlert.Dispose ();
-				txtAlert = null;
-			}
-
-			if (ok_button_outlet != null) {
-				ok_button_outlet.Dispose ();
-				ok_button_outlet = null;
+			if (alert_button_action != null) {
+				alert_button_action.Dispose ();
+				alert_button_action = null;
 			}
 
 			if (alert_button_outlet != null) {
@@ -95,24 +83,9 @@ namespace MediClientMac
 				both_button_outlet = null;
 			}
 
-			if (alert_button_action != null) {
-				alert_button_action.Dispose ();
-				alert_button_action = null;
-			}
-
-			if (ok_button_action != null) {
-				ok_button_action.Dispose ();
-				ok_button_action = null;
-			}
-
-			if (txtCurrentIP != null) {
-				txtCurrentIP.Dispose ();
-				txtCurrentIP = null;
-			}
-
-			if (txtServerIP != null) {
-				txtServerIP.Dispose ();
-				txtServerIP = null;
+			if (checkBox1_outlet != null) {
+				checkBox1_outlet.Dispose ();
+				checkBox1_outlet = null;
 			}
 
 			if (comboBox1 != null) {
@@ -125,9 +98,39 @@ namespace MediClientMac
 				comboBox2 = null;
 			}
 
+			if (ok_button_action != null) {
+				ok_button_action.Dispose ();
+				ok_button_action = null;
+			}
+
+			if (ok_button_outlet != null) {
+				ok_button_outlet.Dispose ();
+				ok_button_outlet = null;
+			}
+
+			if (txtAlert != null) {
+				txtAlert.Dispose ();
+				txtAlert = null;
+			}
+
 			if (txtClientName != null) {
 				txtClientName.Dispose ();
 				txtClientName = null;
+			}
+
+			if (txtCurrentIP != null) {
+				txtCurrentIP.Dispose ();
+				txtCurrentIP = null;
+			}
+
+			if (txtOk != null) {
+				txtOk.Dispose ();
+				txtOk = null;
+			}
+
+			if (txtServerIP != null) {
+				txtServerIP.Dispose ();
+				txtServerIP = null;
 			}
 		}
 	}

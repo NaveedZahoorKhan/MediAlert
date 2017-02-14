@@ -26,9 +26,22 @@ namespace MediClientMac
 
 		[Outlet]
 		AppKit.NSTextField label3 { get; set; }
+
+		[Action ("close_button:")]
+		partial void close_button (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (button1 != null) {
+				button1.Dispose ();
+				button1 = null;
+			}
+
+			if (button2 != null) {
+				button2.Dispose ();
+				button2 = null;
+			}
+
 			if (label1 != null) {
 				label1.Dispose ();
 				label1 = null;
@@ -42,16 +55,6 @@ namespace MediClientMac
 			if (label3 != null) {
 				label3.Dispose ();
 				label3 = null;
-			}
-
-			if (button1 != null) {
-				button1.Dispose ();
-				button1 = null;
-			}
-
-			if (button2 != null) {
-				button2.Dispose ();
-				button2 = null;
 			}
 		}
 	}

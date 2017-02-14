@@ -119,9 +119,14 @@
     <Compile Include="Clients.cs" />
     <Compile Include="JsonHelper.cs" />
     <Compile Include="FileHelper.cs" />
+    <Compile Include="PopOverViewController.cs" />
+    <Compile Include="PopOverViewController.designer.cs">
+      <DependentUpon>PopOverViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
+    <InterfaceDefinition Include="Resources\en.lproj\Main.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\green.ico" />
@@ -129,6 +134,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </BundleResource>
     <BundleResource Include="Resources\red.ico" />
+    <BundleResource Include="Resources\MediText.mdl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </BundleResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
 </Project>

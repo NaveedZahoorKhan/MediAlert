@@ -16,20 +16,27 @@ namespace MediClientMac
 {
 	public partial class ClientFormViewController : NSViewController
 	{
-		public ClientFormViewController (IntPtr handle) : base (handle)
+		public ClientFormViewController(IntPtr handle) : base(handle)
 		{
+		
 			Thread thdListener = new Thread(new ThreadStart(listenerThread));
 			thdListener.Start();
 			int id = 0;     // The id of the hotkey. 
 			Clients clt = GetLatestClient();
 			if (clt != null)
 			{
-				if (!String.IsNullOrEmpty(clt.ModifierCode) && !String.IsNullOrEmpty(clt.KeyHashCode))
+				if (!string.IsNullOrEmpty(clt.ModifierCode) && !string.IsNullOrEmpty(clt.KeyHashCode))
 				{
 					clt.LastHandle = RegisterKey(clt.ModifierCode, clt.KeyHashCode).ToString();
 					WriteJsonFile(clt);
 				}
 			}
+
+		}
+		public override void ViewDidAppear()
+		{
+			base.ViewDidAppear();
+			//DismissViewController(ParentViewController);
 
 		}
 		public ClientFormViewController()
@@ -121,7 +128,7 @@ namespace MediClientMac
 			try
 			{
 				clientSocket.Connect(new IPEndPoint(IPAddress.Parse(ViewController.ServerIpAddress), 8001));
-
+				//ModalRunner("Successfull Connected", "");
 			}
 			catch (SocketException ex)
 
@@ -145,61 +152,57 @@ namespace MediClientMac
 			if (clp != null)
 			{
 				string message = "";
-				if (mode == MessageType.Normal)
+				switch (mode)
 				{
-					clp.ipadd = clientSocket.LocalEndPoint.ToString();
-					if (clp.MessageMode == "Both")
-					{
-						if (icoCounter == 1 || icoCounter == 2)
+					case MessageType.Normal:
+						clp.ipadd = clientSocket.LocalEndPoint.ToString();
+						if (clp.MessageMode == "Both")
 						{
+							if (icoCounter == 1 || icoCounter == 2)
+							{
 
-							clp.Message = clp.OkMessage;
+								clp.Message = clp.OkMessage;
+							}
+							else
+								if (icoCounter == 0)
+							{
+								clp.Message = clp.AlertMessage;
+							}
 						}
-						else
-							if (icoCounter == 0)
-						{
-							clp.Message = clp.AlertMessage;
-						}
-					}
-					message = JsonHelper<Clients>.JsonSerializer(clp);
-					clientSocket.Send(Encoding.ASCII.GetBytes(message));
-				}
-				else
-					if (mode == MessageType.Connected)
-				{
-					clp.Message = "Client connected.";
-					clp.ipadd = clientSocket.LocalEndPoint.ToString();
-					clp.MessageMode = "Status";
-					message = JsonHelper<Clients>.JsonSerializer(clp);
-					clientSocket.Send(Encoding.ASCII.GetBytes(message));
-				}
-				else
-						if (mode == MessageType.Disconnected)
-				{
-					clp.Message = "Client disconnected.";
-					clp.ipadd = clientSocket.LocalEndPoint.ToString();
-					clp.MessageMode = "Status";
-					message = JsonHelper<Clients>.JsonSerializer(clp);
-					clientSocket.Send(Encoding.ASCII.GetBytes(message));
-				}
-				else
-							if (mode == MessageType.Acknowledge)
-				{
-					clp.Message = clp.ClientName + " Acknowledged.";
-					clp.ipadd = clientSocket.LocalEndPoint.ToString();
-					clp.MessageMode = "ACK";
-					message = JsonHelper<Clients>.JsonSerializer(clp);
-					clientSocket.Send(Encoding.ASCII.GetBytes(message));
+						message = JsonHelper<Clients>.JsonSerializer(clp);
+						clientSocket.Send(Encoding.ASCII.GetBytes(message));
+						break;
+					case MessageType.Connected:
+						clp.Message = "Client connected.";
+						clp.ipadd = clientSocket.LocalEndPoint.ToString();
+						clp.MessageMode = "Status";
+						message = JsonHelper<Clients>.JsonSerializer(clp);
+						clientSocket.Send(Encoding.ASCII.GetBytes(message));
+						break;
+					case MessageType.Disconnected:
+						clp.Message = "Client disconnected.";
+						clp.ipadd = clientSocket.LocalEndPoint.ToString();
+						clp.MessageMode = "Status";
+						message = JsonHelper<Clients>.JsonSerializer(clp);
+						clientSocket.Send(Encoding.ASCII.GetBytes(message));
+						break;
+					case MessageType.Acknowledge:
+						clp.Message = clp.ClientName + " Acknowledged.";
+						clp.ipadd = clientSocket.LocalEndPoint.ToString();
+						clp.MessageMode = "ACK";
+						message = JsonHelper<Clients>.JsonSerializer(clp);
+						clientSocket.Send(Encoding.ASCII.GetBytes(message));
+						break;
 				}
 
-				//if (clp.MessageMode == "Alert")
-				//{
-				//    clientSocket.Send(Encoding.ASCII.GetBytes(message));
-				//}
-				//else
-				//{
-				//    clientSocket.Send(Encoding.ASCII.GetBytes(message));
-				//}
+				if (clp.MessageMode == "Alert")
+				{
+				    clientSocket.Send(Encoding.ASCII.GetBytes(message));
+				}
+				else
+				{
+				    clientSocket.Send(Encoding.ASCII.GetBytes(message));
+				}
 			}
 			else
 			{
@@ -207,6 +210,7 @@ namespace MediClientMac
 				
 			}
 			clientSocket.Close();
+			t.Abort();
 		}
 		public void ModalRunner(string message, string infoText)
 		{
@@ -217,7 +221,7 @@ namespace MediClientMac
 						alert.MessageText = message;
 						alert.InformativeText = "Reason: "+infoText;
 						alert.AlertStyle = NSAlertStyle.Informational;
-						alert.Icon = null;
+						
 						alert.RunModal();
 					});
 		}
@@ -264,15 +268,16 @@ namespace MediClientMac
 		}
 		IPAddress ipAd = IPAddress.Parse(ViewController.IpAddressVal);
 		private ArrayList nSockets = new ArrayList();
+		Thread t;
 		partial void pictureBox1_actions(NSObject sender)
 		{
-			Console.WriteLine(sender.GetType());
-			Thread t = new Thread(() => ClientThreadStart(MessageType.Normal));
+			
+			t= new Thread(() => ClientThreadStart(MessageType.Normal));
 			t.Start();
 			if (icoCounter == 1 || icoCounter == 2)
 			{
 				pictureBox1.Image = new NSImage("green.ico");
-
+				PerformSegue("AlertOnGreenClickSegue", this);
 				icoCounter = 0;
 
 			}
@@ -280,16 +285,27 @@ namespace MediClientMac
 			{
 				pictureBox1.Image = new NSImage("red.ico");
 				//Program.gr.Close();
-				//Program.re = new AlertOnRedClick();
+
+				PerformSegue("AlertOnRedClickSegue",this);
 				//Program.re.Show();
 				icoCounter = 1;
 			}
-			pictureBox1.Activated += (s, e) =>
-			{
-				Console.WriteLine(((NSButton)s).Action);
-			};
-		}
 
+				
+			
+		}
+		public override void RightMouseDown(NSEvent theEvent)
+		{
+			base.RightMouseDown(theEvent);
+			PerformSegue("PopOverSegue", this);
+			//ModalRunner(theEvent.GetType().ToString(), "no detail found");
+		}
+		//public override void PrepareForSegue(NSStoryboardSegue segue, NSObject sender)
+		//{
+		//	base.PrepareForSegue(segue, sender);
+		//	PerformSegue("PopOverSegue", this);
+
+		//}
 		public void listenerThread()
 		{
 			try
@@ -314,7 +330,7 @@ namespace MediClientMac
 			}
 			catch (Exception e)
 			{
-				Console.Write(e.Message);
+				ModalRunner("Error occured in thread", e.Message);
 			}
 		}
 	
