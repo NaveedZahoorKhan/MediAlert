@@ -41,7 +41,7 @@ namespace MediClientMac
 			//		label1.StringValue += clt.ClientName == null ? "Demo" : clt.ClientName;
 
 			//		label2.StringValue = clt.AlertMessage == null ? "Demo" : clt.AlertMessage;
-			//		label3.StringValue = DateTime.Now.ToShortTimeString().ToString() + " - " + DateTime.Now.ToShortDateString();
+			//		label3.StringValue = DateTime.Now.ToShortTimeString().ToString() + " - " ++ DateTime.Now.ToShortDateString();
 				}
 			}
 			catch (Exception ex)

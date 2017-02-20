@@ -60,7 +60,7 @@ namespace MediClientMac
 			{
 				try
 				{
-					txtOk= new NSTextField(new NSCoder(new NSObject(clt.OkMessage)));
+					//txtOk= new NSTextField(new NSCoder(new NSObject(clt.OkMessage)));
 
 					//this.txtOk.StringValue = clt.OkMessage == null ? "Demo" : clt.OkMessage;
 					//txtAlert.StringValue = clt.AlertMessage == null ? "Demo" : clt.AlertMessage;

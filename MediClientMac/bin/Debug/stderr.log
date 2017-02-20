@@ -1,4 +1,4 @@
-2017-02-09 22:24:08.966 MediClientMac[539:7723] Failed to connect (cancel_button) outlet from (ViewController) to (NSButton): missing setter or instance variable
-2017-02-09 22:24:08.969 MediClientMac[539:7723] Failed to connect (connect_to_server) outlet from (ViewController) to (NSButton): missing setter or instance variable
-2017-02-09 22:24:08.969 MediClientMac[539:7723] Could not connect action, target class ViewController does not respond to -check_box_inAction:
-2017-02-09 22:24:15.447 MediClientMac[539:7723] Could not connect action, target class PreferencesViewController does not respond to -both_button_action:
+2017-02-17 01:57:12.570 MediClientMac[568:10601] Failed to connect (cancel_button) outlet from (ViewController) to (NSButton): missing setter or instance variable
+2017-02-17 01:57:12.576 MediClientMac[568:10601] Failed to connect (connect_to_server) outlet from (ViewController) to (NSButton): missing setter or instance variable
+2017-02-17 01:57:12.576 MediClientMac[568:10601] Could not connect action, target class ViewController does not respond to -check_box_inAction:
+2017-02-17 01:59:12.364 MediClientMac[568:10601] *** Assertion failure in -[ViewController dismissViewController:], /Library/Caches/com.apple.xbs/Sources/AppKit/AppKit-1504/Controllers/NSViewController.m:865

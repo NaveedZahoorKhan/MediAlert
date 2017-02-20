@@ -149,7 +149,7 @@ namespace MediClientMac
 					//this.Hide();
 					//ClientForm serverMaster = new ClientForm();
 					//serverMaster.Show();
-					//DismissViewController(this);
+					DismissViewController(this);
 
 					PerformSegue("ShowClientSegue", this);
 				}
