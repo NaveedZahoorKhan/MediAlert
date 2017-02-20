@@ -16,11 +16,11 @@ Addresses:
 Name: en0
 Description: en0
 Addresses: 
- fe80::c89:86fe:57c8:36b0%4
- 192.168.8.101
+ fe80::49b:cff2:5d80:8172%4
+ 192.168.8.102
 
 Name: utun0
 Description: utun0
 Addresses: 
- fe80::ebd5:2c5d:7566:ccc2%5
+ fe80::e3ac:f6cd:865b:235%5
 
